@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login
+{% endblock %}
+{% block stylesheets %}
+	<meta
+	http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta	name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap -->
+	<link	href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link	href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+	<!-- NProgress -->
+	<link	href="{{ asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+	<!-- Animate -->
+	<link	href="{{ asset('vendors/animate.css/animate.css') }}" rel="stylesheet">
+	<!-- iCheck -->
+	<link	href="{{ asset('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+	<!-- Custom Theme Style -->
+	<link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
+{% endblock %}
+{% block bodyclass %}class="login"{% endblock %}
+{% block body %}
+	<div>
+		<a class="hiddenanchor" id="signup"></a>
+		<a class="hiddenanchor" id="signin"></a>
+		<div class="login_wrapper">
+			<div class="animate form login_form">
+				<section class="login_content">
+					<form method="post">
+						{% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                        {% if app.user %}
+                            <div class="mb-3">
+                                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            </div>
+                        {% endif %}
+						<div>
+                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+						</div>
+						<div>
+                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+						</div>
+						<div>
+							<input type="checkbox" class="" name="_remember_me"><span>Remember me</span>
+						</div>
+						<div>
+                          <button class="btn btn-success" type="submit">Sign in </button>
+						  <a class="reset_pass" href="{{path('app_forgot_password_request')}}">Lost your password?</a>
+
+								<a href="{{path('app_register')}}" class="to_register">
+                                register
+    							</a>
+							
+								<a href="{{path('connect_google_start')}}" >
+                                connexion google
+								</a>
+
+                            
+                        </div>
+
+					
+					</form>
+				</section>
+			</div>
+            	
+		
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+{% endblock %}
+
+{% block extrajs %}
+<script>
+$(document).ready(function(){
+
+
+});
+
+</script>
+{% endblock %}
+
+
